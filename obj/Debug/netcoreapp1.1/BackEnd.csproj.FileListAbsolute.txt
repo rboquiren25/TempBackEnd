@@ -1,0 +1,8 @@
+C:\Users\ruelb\Documents\Visual Studio 2017\Projects\MyTemplate\BackEnd\bin\Debug\netcoreapp1.1\BackEnd.deps.json
+C:\Users\ruelb\Documents\Visual Studio 2017\Projects\MyTemplate\BackEnd\bin\Debug\netcoreapp1.1\BackEnd.runtimeconfig.json
+C:\Users\ruelb\Documents\Visual Studio 2017\Projects\MyTemplate\BackEnd\bin\Debug\netcoreapp1.1\BackEnd.runtimeconfig.dev.json
+C:\Users\ruelb\Documents\Visual Studio 2017\Projects\MyTemplate\BackEnd\bin\Debug\netcoreapp1.1\BackEnd.dll
+C:\Users\ruelb\Documents\Visual Studio 2017\Projects\MyTemplate\BackEnd\bin\Debug\netcoreapp1.1\BackEnd.pdb
+C:\Users\ruelb\Documents\Visual Studio 2017\Projects\MyTemplate\BackEnd\obj\Debug\netcoreapp1.1\BackEnd.AssemblyInfo.cs
+C:\Users\ruelb\Documents\Visual Studio 2017\Projects\MyTemplate\BackEnd\obj\Debug\netcoreapp1.1\BackEnd.dll
+C:\Users\ruelb\Documents\Visual Studio 2017\Projects\MyTemplate\BackEnd\obj\Debug\netcoreapp1.1\BackEnd.pdb
