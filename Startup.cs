@@ -41,15 +41,24 @@ namespace MyTemplate
         {
             services.AddAutoMapper();
             services.AddDbContext<MyTemplateDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddMvc();
-
            
 
+               services.AddCors(options =>
+                    {
+                        options.AddPolicy("CorsPolicy",
+                            builder => builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials() );
+                    });
+             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseCors("CorsPolicy");
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
