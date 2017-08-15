@@ -101,6 +101,17 @@ namespace MyTemplate.Controllers
             
         }
 
+        [Authorize(ActiveAuthenticationSchemes="Bearer")]
+        [Authorize(Roles = "Administrator")]
+        [HttpGet("/api/users/delete")]
+         public async Task<IEnumerable<UserResource>> DeleteUser(int id)
+        {
+            var user = await db.Users.Where(u => u.Id.Equals(id)).Include(u => u.Roles).SingleOrDefaultAsync();
+            
+            db.Users.Remove(user);
+            var users = await db.Users.Include(u => u.Roles).ToListAsync();
+            return mapper.Map<List<User>, List<UserResource>>(users);
+        }
         
 
     }
