@@ -18,16 +18,28 @@ namespace MyTemplate.Models
         [Required]
         [StringLength(255)]
         public string Email { get; set; }   
-        public ICollection<Role> Roles {get; set;}
+        public ICollection<Role> Roles { get; set; }
+        public ICollection<Scope> Scopes { get; set; }
 
         public User()
         {
             Roles = new Collection<Role>();
+            Scopes = new Collection<Scope>();
         }
     }
 
     [Table("Roles")]
     public class Role
+    {
+        public int Id { get; set; }
+        [Required]
+        public string RoleName { get; set; }
+        public User User { get; set; }
+        public int UserId {get; set; }
+    }
+
+    [Table("Scopes")]
+    public class Scope
     {
         public int Id { get; set; }
         [Required]

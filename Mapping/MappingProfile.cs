@@ -11,10 +11,13 @@ namespace MyTemplate.Mapping
             //domain to resoure
             CreateMap<User, UserResource>();
             CreateMap<Role, RoleResource>();
+            CreateMap<Location, LocationResource>();
 
             //resource to domain
             CreateMap<UserResource, User>(); 
             CreateMap<RoleResource, Role>();
+            CreateMap<LocationResource, Location>();
+
         }
     }
 }

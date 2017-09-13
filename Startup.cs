@@ -39,19 +39,20 @@ namespace MyTemplate
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
-            services.AddDbContext<MyTemplateDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-           
-
-               services.AddCors(options =>
-                    {
-                        options.AddPolicy("CorsPolicy",
-                            builder => builder.AllowAnyOrigin()
+            services.AddCors(options =>
+                {
+                    options.AddPolicy("CorsPolicy",
+                        builder => builder.WithOrigins("http://localhost:4200")
                             .AllowAnyMethod()
                             .AllowAnyHeader()
-                            .AllowCredentials() );
-                    });
-             services.AddMvc();
+                            .AllowCredentials()
+                            .AllowAnyMethod()
+                         );
+                });
+
+            services.AddAutoMapper();
+            services.AddDbContext<MyTemplateDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,7 +107,8 @@ namespace MyTemplate
 
             app.UseStaticFiles();
 
-            
+           
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

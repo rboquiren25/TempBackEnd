@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MyTemplate.Persistence;
 
-namespace MyTemplate.Migrations
+namespace BackEnd.Migrations
 {
     [DbContext(typeof(MyTemplateDbContext))]
     partial class MyTemplateDbContextModelSnapshot : ModelSnapshot
@@ -15,6 +15,20 @@ namespace MyTemplate.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MyTemplate.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
 
             modelBuilder.Entity("MyTemplate.Models.Role", b =>
                 {
@@ -31,6 +45,37 @@ namespace MyTemplate.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("MyTemplate.Models.RoleType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleTypes");
+                });
+
+            modelBuilder.Entity("MyTemplate.Models.Scope", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("RoleName")
+                        .IsRequired();
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Scopes");
                 });
 
             modelBuilder.Entity("MyTemplate.Models.User", b =>
@@ -58,6 +103,14 @@ namespace MyTemplate.Migrations
                 {
                     b.HasOne("MyTemplate.Models.User", "User")
                         .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MyTemplate.Models.Scope", b =>
+                {
+                    b.HasOne("MyTemplate.Models.User", "User")
+                        .WithMany("Scopes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

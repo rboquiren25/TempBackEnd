@@ -13,6 +13,9 @@ namespace MyTemplate.Persistence
 
         public DbSet<User> Users {get; set;}
         public DbSet<Role> Roles {get; set;}
+        public DbSet<Location> Locations {get;set;}
+        public DbSet<RoleType> RoleTypes {get;set;}
+        public DbSet<Scope> Scopes {get; set;}
 
     }   
 

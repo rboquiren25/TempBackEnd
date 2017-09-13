@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MyTemplate.Persistence;
 
-namespace MyTemplate.Migrations
+namespace BackEnd.Migrations
 {
     [DbContext(typeof(MyTemplateDbContext))]
-    [Migration("20170712072832_InitialMigration")]
+    [Migration("20170906032959_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -16,6 +16,20 @@ namespace MyTemplate.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MyTemplate.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
 
             modelBuilder.Entity("MyTemplate.Models.Role", b =>
                 {
@@ -32,6 +46,20 @@ namespace MyTemplate.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("MyTemplate.Models.RoleType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleTypes");
                 });
 
             modelBuilder.Entity("MyTemplate.Models.User", b =>

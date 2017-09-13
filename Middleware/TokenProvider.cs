@@ -12,9 +12,12 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Cors;
+
 
 namespace MyTemplate.Middleware
 {
+   
     public class TokenProvider
     {
         private readonly RequestDelegate _next;
@@ -138,7 +141,7 @@ namespace MyTemplate.Middleware
 
     public class TokenProviderOptions
     {
-        public string Path { get; set; } = "/user/login";
+        public string Path { get; set; } = "/login";
         public string Issuer { get; set; }
         public string Audience { get; set; }
         public TimeSpan Expiration { get; set; } = TimeSpan.FromMinutes(30);

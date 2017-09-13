@@ -14,9 +14,11 @@ using Microsoft.AspNetCore.Http.Authentication;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 
 namespace MyTemplate.Controllers
 {
+    
     public class UsersController : Controller
     {
         private readonly MyTemplateDbContext db;
@@ -36,12 +38,6 @@ namespace MyTemplate.Controllers
         {
             var users = await db.Users.Include(u => u.Roles).ToListAsync();
             return mapper.Map<List<User>, List<UserResource>>(users);
-        }
-
-        [HttpPost("/api/test")]
-        public string test()
-        {   
-            return "abc";
         }
         
         [Authorize(ActiveAuthenticationSchemes="Bearer")]
@@ -74,10 +70,29 @@ namespace MyTemplate.Controllers
         [HttpPost("/api/users/update")]
         public IActionResult UpdateUser([FromBody]UserResource UserResource)
         {
+            List<string> roles = new List<string>();
+            roles.Add("Administrator");
+            roles.Add("Staff");
+
             var user = mapper.Map<UserResource, User>(UserResource);
+            var userdb = db.Users.Where(u => u.Id.Equals(user.Id)).Include(u => u.Roles).SingleOrDefault();
+            userdb.Email = user.Email;
+            db.SaveChanges();
 
-            foreach(Role r in user.Roles){
-
+            foreach(string r in roles){
+                if(user.Roles.Where( rl => rl.RoleName.Equals(r)).Count() < 1 ) {
+                   Role roledb = db.Roles.Where(rl => rl.RoleName.Equals(r) && rl.User.Id.Equals(user.Id)).SingleOrDefault();
+                   db.Roles.Remove(roledb);
+                   db.SaveChanges();
+                }else{
+                    if(userdb.Roles.Where(r1=>r1.RoleName.Equals(r) && r1.User.Id.Equals(user.Id)).Count() < 1){
+                        Role roledb = new Role();
+                        roledb.UserId = user.Id;
+                        roledb.RoleName = r;
+                        db.Roles.Add(roledb);
+                        db.SaveChanges();
+                    }
+                }
             }
 
             return Ok(mapper.Map<User, UserResource>(user));
