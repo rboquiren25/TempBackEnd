@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -20,11 +21,13 @@ namespace MyTemplate.Models
         public string Email { get; set; }   
         public ICollection<Role> Roles { get; set; }
         public ICollection<Scope> Scopes { get; set; }
+        public ICollection<LoginLog> LoginLogs { get; set;}
 
         public User()
         {
             Roles = new Collection<Role>();
             Scopes = new Collection<Scope>();
+            LoginLogs = new Collection<LoginLog>();
         }
     }
 
@@ -43,8 +46,16 @@ namespace MyTemplate.Models
     {
         public int Id { get; set; }
         [Required]
-        public string RoleName { get; set; }
+        public string Name { get; set; }
         public User User { get; set; }
+        public int UserId {get; set; }
+    }
+
+    [Table("LoginLogs")]
+    public class LoginLog {
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public string IpAddress { get; set;}
         public int UserId {get; set; }
     }
 }

@@ -8,9 +8,10 @@ using MyTemplate.Persistence;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(MyTemplateDbContext))]
-    partial class MyTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170926004455_loginlog")]
+    partial class loginlog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

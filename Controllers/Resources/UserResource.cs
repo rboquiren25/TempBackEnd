@@ -18,5 +18,7 @@ namespace MyTemplate.Controllers.Resources
             Roles = new Collection<RoleResource>();
             Scopes = new Collection<ScopeResource>();
         }
+
+        
     }
 }

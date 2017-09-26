@@ -8,9 +8,10 @@ using MyTemplate.Persistence;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(MyTemplateDbContext))]
-    partial class MyTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170914063227_rename")]
+    partial class rename
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -28,24 +29,6 @@ namespace BackEnd.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("MyTemplate.Models.LoginLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("IpAddress");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("LoginLogs");
                 });
 
             modelBuilder.Entity("MyTemplate.Models.Role", b =>
@@ -115,14 +98,6 @@ namespace BackEnd.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("MyTemplate.Models.LoginLog", b =>
-                {
-                    b.HasOne("MyTemplate.Models.User")
-                        .WithMany("LoginLogs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MyTemplate.Models.Role", b =>

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http.Features;
 
 
 namespace MyTemplate.Middleware
@@ -70,6 +71,14 @@ namespace MyTemplate.Middleware
                 await context.Response.WriteAsync("{}");
                 return;
             }
+            
+            LoginLog loginlog = new LoginLog();
+            loginlog.Date = DateTime.Now;
+            loginlog.UserId = user.Id;
+            loginlog.IpAddress = context.Connection.RemoteIpAddress.ToString();
+
+            db.LoginLogs.Add(loginlog);
+            db.SaveChanges();
 
             var now  = DateTime.UtcNow;
             List<Claim> claims = new List<Claim>();
@@ -129,6 +138,7 @@ namespace MyTemplate.Middleware
          
             if (User != null)
             {
+              
                return User;
             }
              return null;
@@ -144,7 +154,7 @@ namespace MyTemplate.Middleware
         public string Path { get; set; } = "/login";
         public string Issuer { get; set; }
         public string Audience { get; set; }
-        public TimeSpan Expiration { get; set; } = TimeSpan.FromMinutes(30);
+        public TimeSpan Expiration { get; set; } = TimeSpan.FromMinutes(240);
         public SigningCredentials SigningCredentials { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace MyTemplate.Persistence
         public DbSet<Location> Locations {get;set;}
         public DbSet<RoleType> RoleTypes {get;set;}
         public DbSet<Scope> Scopes {get; set;}
+        public DbSet<LoginLog> LoginLogs { get; set;}
 
     }   
 
